@@ -1,0 +1,22 @@
+{
+  "name": "express-js-to-do-list",
+  "version": "1.0.0",
+  "description": "to do list crud backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nottnt/express-js-to-do-list"
+  },
+  "author": "nottnt",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "swagger-jsdoc": "^5.0.1",
+    "swagger-ui-express": "^4.1.4"
+  }
+}
