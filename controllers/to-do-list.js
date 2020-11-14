@@ -1,4 +1,4 @@
-const toDoList = require('../src/to-do-list')
+const toDoList = require('../services/to-do-list')
 
 module.exports.setup = function (app) {
     /**
@@ -21,7 +21,11 @@ module.exports.setup = function (app) {
      *           type: string
      */
 
-    app.get('/to-do-list', toDoList.getToDoList)
+    app.get('/to-do-list', async (req, res) => {
+        const result = await toDoList.getToDoList(req, res)
+
+        res.send({ success: true, data: result, message: 'get successful' })
+    })
 
     /**
      * @swagger
@@ -34,7 +38,7 @@ module.exports.setup = function (app) {
      *       - application/json
      *     parameters:
      *       - in: body
-     *         name: user
+     *         name: CRUD
      *         schema:
      *           type: object
      *           properties:
@@ -47,7 +51,12 @@ module.exports.setup = function (app) {
      *         description: Create To Do List success
      */
 
-    app.post('/to-do-list', toDoList.postToDoList)
+    app.post('/to-do-list', async (req, res) => {
+        const result = await toDoList.postToDoList(req, res)
+
+        if (result.success) res.send(result)
+        else res.status(result.statusCode).send(result.message)
+    })
 
     /**
      * @swagger
@@ -60,7 +69,7 @@ module.exports.setup = function (app) {
      *       - application/json
      *     parameters:
      *       - in: body
-     *         name: user
+     *         name: CRUD
      *         schema:
      *           type: object
      *           properties:
@@ -76,7 +85,12 @@ module.exports.setup = function (app) {
      *         description: Update To Do List success
      */
 
-    app.put('/to-do-list', toDoList.putToDoList)
+    app.put('/to-do-list', async (req, res) => {
+        const result = await toDoList.putToDoList(req, res)
+
+        if (result.success) res.send(result)
+        else res.status(result.statusCode).send(result.message)
+    })
 
     /**
      * @swagger
@@ -90,12 +104,23 @@ module.exports.setup = function (app) {
      *     parameters:
      *       - name: id
      *         in: path
-     *         type: integer
+     *         type: string
      *         required: true
      *     responses:
      *       200:
      *         description: Update To Do List success
      */
 
-    app.delete('/to-do-list/:id', toDoList.deleteToDoList)
+    app.delete('/to-do-list/:id', async (req, res) => {
+        const { id } = req.params
+        if (!id) {
+            res.status(404).send('must send id')
+            return
+        }
+
+        const result = await toDoList.deleteToDoList(req, res)
+
+        if (result.success) res.send(result)
+        else res.status(result.statusCode).send(result.message)
+    })
 }

@@ -4,7 +4,7 @@
   "description": "to do list crud backend",
   "main": "server.js",
   "scripts": {
-    "test": "npm test",
+    "test": "jest --watchAll --coverage",
     "start": "node server.js"
   },
   "repository": {
@@ -15,8 +15,13 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mongodb": "^3.6.3",
     "swagger-jsdoc": "^5.0.1",
     "swagger-ui-express": "^4.1.4"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
   }
 }
